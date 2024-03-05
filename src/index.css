@@ -1,0 +1,100 @@
+body {
+  margin-top: 0px;
+  background-color: aquamarine;
+  display: flex;
+  background-image: url("penmanship-2561217_1920.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.container {
+  display: flex;
+  box-sizing: border-box;
+ 
+  
+}
+
+.contracts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.contract {
+  border: 1px solid black;
+  height: 25vh;
+  width: 25vh;
+  margin-top: 10px;
+  padding-left: 5px;
+  margin-right: 5px;
+  padding-top: 5px;
+  background-color: rgb(131, 128, 192);
+  border-radius: 30px;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+}
+.dropmenu {
+  display: flex;
+  flex-direction: column;
+  margin-right: 50px;
+  margin-top: 10px;
+}
+
+.submitform {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  height: 400px;
+  margin-top: 30vh;
+
+  margin-left: 70vh;
+}
+.login {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  margin-right: 20px;
+}
+textarea {
+  resize: none;
+}
+.contractcontainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 2px solid red;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+ 
+  
+}
+
+.company{
+  display: flex;
+  flex-direction: column;
+  margin-right:  50px;
+  margin-bottom: 20px;
+  background-color:lightgray;
+  min-width:20h;
+  min-height: 20vh;
+  border-radius: 20px;
+  max-width: 30vh;
+  max-height: 40vh;
+  border: 2px solid black;
+ 
+  
+  
+}
+h2{
+  margin-left: auto;
+  margin-right: auto;
+  text-decoration: underline;
+}
+button{
+  border-radius: 20px;
+
+}
+
+.okBtn{margin-top: 10px;}
