@@ -1,4 +1,4 @@
-import { useContext, useState, useRef } from "react";
+import { useContext, useState, useRef,useEffect } from "react";
 import React from "react";
 
 
@@ -24,7 +24,13 @@ export default function Main() {
   var checkuser = "";
   var checkpassword = "";
 
-  const contractElements = contracts
+   useEffect(()=>{
+    window.localStorage.setItem("oldData",JSON.stringify(contracts))
+    
+   },[])
+  
+  
+   const contractElements = contracts
     .filter((item) => {
       if (searchTerm === "") {
         return item;
@@ -87,6 +93,8 @@ export default function Main() {
   function logOut() {
     setSearchTerm("");
     setConfirmedUser((prev) => !prev);
+    const old= window.localStorage.getItem("oldData")
+    setContracts(JSON.parse(old))
   }
 
   function sortDate() {
