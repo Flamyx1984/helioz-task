@@ -1,6 +1,7 @@
 import { useContext, useState, useRef } from "react";
 import React from "react";
 
+
 import { Context } from "./Context";
 
 export default function Main() {
@@ -19,6 +20,7 @@ export default function Main() {
   const password = "admin";
   const inputRef = useRef(null);
   const inputRef1 = useRef(null);
+
   var checkuser = "";
   var checkpassword = "";
 
@@ -33,24 +35,33 @@ export default function Main() {
       }
     })
     .map((item) => {
-      return (
-        <div className="company">
-          <h2>{item.company}</h2>
+      if (item.details.length < 1) {
+        return;
+      } else {
+        return (
+          <div className="company" key={item.id} >
+            <h2>{item.company}</h2>
 
-          <div>
-            {item.details.map((el) => {
-              return (
-                <div className="contractcontainer">
-                  <span>Contract name: {el.name} </span>
-                  <span>Contract start: {el.start} </span>
-                  <span>Contract ends: {el.end} </span>
-                  <span>Comment: {el.comments} </span>
-                </div>
-              );
-            })}
+            <div>
+              {item.details.map((el) => {
+                return (
+                  <div className="contractcontainer">
+                    <span>Contract name: {el.name} </span>
+                    <span>Contract start: {el.start} </span>
+                    <span>Contract ends: {el.end} </span>
+                    <span>Comment: {el.comments} </span>¸
+                    {confirmedUser ? (
+                      <button onClick={() => deleteContract(el.id)}>
+                        Delete contract
+                      </button>
+                    ) : null}
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      );
+        );
+      }
     });
 
   function newClient() {
@@ -66,25 +77,34 @@ export default function Main() {
     e.preventDefault();
     if (checkuser === userName && checkpassword === password) {
       setConfirmedUser((prev) => !prev);
-    }else{
-      alert("Wrong password or username")
-      
+    } else {
+      alert("Wrong password or username");
     }
     inputRef.current.value = "";
     inputRef1.current.value = "";
   }
 
   function logOut() {
+    setSearchTerm("");
     setConfirmedUser((prev) => !prev);
   }
 
   function sortDate() {
-    contracts.map((item) => {
-      const dateForm = item.details.sort((a, b) => {
+    const updatedDate = contracts.map((item) => ({
+      ...item,
+      details: item.details.sort((a, b) => {
         return new Date(a.start) - new Date(b.start);
-      });
-      setContracts((prev) => [...prev], { details: dateForm });
-    });
+      }),
+    }));
+    setContracts(updatedDate);
+  }
+  function deleteContract(id) {
+    const updatedContracts = contracts.map((company) => ({
+      ...company,
+      details: company.details.filter((detail) => detail.id !== id),
+    }));
+
+    setContracts(updatedContracts);
   }
 
   return (
@@ -92,9 +112,7 @@ export default function Main() {
       {confirmedUser ? (
         <div className="dropmenu">
           <button onClick={newClient}>Add new client</button>
-          <button onClick={newContract}>
-            Add new contract to existing client
-          </button>
+          <button onClick={newContract}>Add new contract</button>
           <input
             type="text"
             placeholder="Search for company"
@@ -121,7 +139,9 @@ export default function Main() {
               onChange={(e) => (checkpassword = e.target.value)}
               ref={inputRef1}
             />
-            <button className="okBtn" onClick={checkUser}>Ok</button>
+            <button className="okBtn" onClick={checkUser}>
+              Ok
+            </button>
           </div>
         </form>
       )}
